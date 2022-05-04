@@ -13,7 +13,7 @@ To try sparse convolution, type bash autotune_conv_float.sh 512 512 7 filter_bg4
 ### Installation steps
 - chmod +x install.sh
 - chmod +x autotune_float.sh
-- chod +x autotune_float.sh
+- chmod +x autotune_float.sh
 - ./install.sh
 - add a file named cnpy.conf to /etc/ld.so.conf.d
 - the content of this file should be path/to/install/dir so default would be /usr/share/lib/
