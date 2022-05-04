@@ -131,7 +131,7 @@ def generate_from_B(Ny_indices, B_indices,BA,block,NY,reg_names, ADDR, GY = None
 
     for group in range(GY):
 
-        if block == 1 and group == 0:
+        if block == 0 and group == 0:
             if HALF:
                 ptx = ".reg .f32 load_reg;\n\t.reg .f32 temp_reg;\n\t.reg .f32 virg_reg, bias_reg, pred_reg,zero_reg;\n\t mov.u32 zero_reg, 0x00000000;\n\t"
             else:
