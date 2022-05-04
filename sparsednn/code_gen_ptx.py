@@ -131,7 +131,7 @@ def generate_from_B(Ny_indices, B_indices,BA,block,NY,reg_names, ADDR, GY = None
 
     for group in range(GY):
 
-        if block == 0 and group == 0:
+        if block == 1 and group == 0:
             if HALF:
                 ptx = ".reg .f32 load_reg;\n\t.reg .f32 temp_reg;\n\t.reg .f32 virg_reg, bias_reg, pred_reg,zero_reg;\n\t mov.u32 zero_reg, 0x00000000;\n\t"
             else:
@@ -261,7 +261,7 @@ def gencode(BA,outfile,C_dim,A_blocks,C_blocks,GY,name=None):
     temp_ptx_file_name = "temp_stub" + token + ".ptx"
 
     open(temp_cu_file_name,"w").write(program)
-    os.system("nvcc -arch=sm_75 -I /home/ubuntu/cnpy -L /home/ubuntu/cnpy/build -w -O3 -ptx -o " + temp_ptx_file_name + " " + temp_cu_file_name + " --std=c++11 --compiler-options=\"-fsingle-precision-constant\" -lcnpy -lz")
+    os.system("nvcc -arch=sm_75 -I /jetson-inference/gpu-sparsert/build/include -L /jetson-inference/gpu-sparsert/build/lib -w -O3 -ptx -o " + temp_ptx_file_name + " " + temp_cu_file_name + " --std=c++11 --compiler-options=\"-fsingle-precision-constant\" -lcnpy -lz")
     os.sync()
     reg_names , addresses = parse_ptx(temp_ptx_file_name,A_blocks)
     #print(reg_names)
