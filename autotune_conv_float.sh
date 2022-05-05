@@ -53,7 +53,7 @@ for A in ${A_choices[@]}; do
 		then ADDITIONAL_INCLUDES="${ADDITIONAL_INCLUDES} -L ${CUDNN_LIBDIR}";
 		fi
 
-		nvcc -std=c++11 -I build/include -L build/lib -O3 -arch=sm_75 sparsednn/driver_conv.cu -lcudnn -lcnpy -lcuda -DRESIDUAL=$RESIDUAL,HALF=0,A_Blocks=$A,C_Blocks=$C,Gy=$Gy,IC=$IC,OC=$OC,IMAGE_DIM=${IMAGE_DIM} -o ./exe ${ADDITIONAL_INCLUDES}
+		nvcc -std=c++11 -I build/include -L build/lib -O3 -arch=sm_72 sparsednn/driver_conv.cu -lcudnn -lcnpy -lcuda -DRESIDUAL=$RESIDUAL,HALF=0,A_Blocks=$A,C_Blocks=$C,Gy=$Gy,IC=$IC,OC=$OC,IMAGE_DIM=${IMAGE_DIM} -o ./exe ${ADDITIONAL_INCLUDES}
 		LD_LIBRARY_PATH=$LD_LIBRARY_PATH:build/lib ./exe
 		python3 scripts/test_equivalence.py kernel_output.npy cudnn_output.npy
 	done
