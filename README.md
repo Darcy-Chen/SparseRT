@@ -6,20 +6,17 @@ Dependencies:
 - Cnpy. Please install it and update the include path in the scripts.
 - Cuda toolchain, etc. 
 - Pytorch
-
 To try SpMM, type autotune_float.sh 0
 To try sparse convolution, type bash autotune_conv_float.sh 512 512 7 filter_bg4.npy
 
 ### Installation steps
-- git clone https://github.com/Darcy-Chen/SparseRT.git
-- chmod +x install.sh
-- chmod +x autotune_float.sh
-- chmod +x autotune_float.sh
-- ./install.sh
-- cd /etc/ld.so.conf.d
-- nano cnpy.conf
-- the content of this file should be path/to/install/dir so default would be /jetson-inference/SparseRT/build/lib/
-- sudo ldconfig
+```
+git clone https://github.com/Darcy-Chen/SparseRT.git
+bash install.sh
+cd /etc/ld.so.conf.d
+nano cnpy.conf (the content of this file should be path/to/install/dir so default would be /jetson-inference/SparseRT/build/lib/)
+sudo ldconfig
+```
 
 When running on Jetson using Docker Container, run this before installing:
 - apt-get update
