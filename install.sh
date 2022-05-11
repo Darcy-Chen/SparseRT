@@ -1,4 +1,8 @@
 #!/bin/bash
+
+chmod +x autotune_float.sh
+chmod +x autotune_float.sh
+
 mkdir build;
 cd build;
 BUILDTOP=`pwd`

@@ -491,17 +491,21 @@ int main(int argc, char const *argv[]) {
             ));
 
 
-    cudnnConvolutionFwdAlgo_t convolution_algorithm;
+    const int n_requestedAlgo = 20;
+    cudnnConvolutionFwdAlgoPerf_t algo_perf[n_requestedAlgo];
+    int n_returnedAlgo;
+
     checkCUDNN(
-            cudnnGetConvolutionForwardAlgorithm(cudnn,
+            cudnnFindConvolutionForwardAlgorithm(cudnn,
                                                 input_descriptor,
                                                 kernel_descriptor,
                                                 convolution_descriptor,
                                                 output_descriptor,
-                                                CUDNN_CONVOLUTION_FWD_PREFER_FASTEST,
-                    /*memoryLimitInBytes=*/0,
-                                                &convolution_algorithm));
+                                                n_requestedAlgo,
+                                                &n_returnedAlgo,
+                                                algo_perf));
 
+    convolution_algorithm = algo_perf[0].algo;
     std::cout << "picked algorithm: " << convolution_algorithm << std::endl;
     size_t workspace_bytes = 0;
     //convolution_algorithm = CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_PRECOMP_GEMM;
