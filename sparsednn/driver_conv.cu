@@ -505,7 +505,7 @@ int main(int argc, char const *argv[]) {
                                                 &n_returnedAlgo,
                                                 algo_perf));
 
-    convolution_algorithm = algo_perf[0].algo;
+    cudnnConvolutionFwdAlgo_t convolution_algorithm = algo_perf[0].algo;
     std::cout << "picked algorithm: " << convolution_algorithm << std::endl;
     size_t workspace_bytes = 0;
     //convolution_algorithm = CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_PRECOMP_GEMM;
