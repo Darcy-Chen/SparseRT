@@ -40,7 +40,7 @@ for A in ${A_choices[@]}; do
 		echo $Gy $A $C
 
 		python3 sparsednn/code_gen_conv_ptx.py --Gy=$Gy --IC=$IC --OC=$OC --IMAGE_DIM=$IMAGE_DIM --infile transposed_filter.npy --outfile $ptx_name --A_blocks=$A --C_blocks=$C 
-		ptxas -arch=sm_75 $ptx_name -o ${kernel_name}
+		ptxas -arch=sm_72 $ptx_name -o ${kernel_name}
 		cp ${kernel_name} testing_conv.cubin
 
 		ADDITIONAL_INCLUDES=""

@@ -113,7 +113,7 @@ void initCUDA()
     err = cuCtxCreate(&context, 0, device);
     if (err != CUDA_SUCCESS) {
         fprintf(stderr, "* Error initializing the CUDA context.");
-        cuCtxDetach(context);
+        cuCtxDestroy(context);
         exit(-1);
     }
 
@@ -121,7 +121,7 @@ void initCUDA()
     std::cout << err << std::endl;
     if (err != CUDA_SUCCESS) {
         fprintf(stderr, "* Error loading the module %s", module_file);
-        cuCtxDetach(context);
+        cuCtxDestroy(context);
         exit(-1);
     }
 
@@ -129,7 +129,7 @@ void initCUDA()
 
     if (err != CUDA_SUCCESS) {
         fprintf(stderr, "* Error getting kernel function %s", kernel_name);
-        cuCtxDetach(context);
+        cuCtxDestroy(context);
         exit(-1);
     }
 }
@@ -633,6 +633,7 @@ int main(int argc, char const *argv[]) {
 
     cudaDeviceSynchronize();
 
+    std::cout << '----------------------------------------------------------------' << std::endl;
     std::cout << h_output[0] << std::endl;
     cnpy::npy_save("cudnn_output.npy",&h_output[0],{OC, IMAGE_DIM, IMAGE_DIM},"w");
 
