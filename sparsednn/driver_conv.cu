@@ -633,7 +633,6 @@ int main(int argc, char const *argv[]) {
 
     cudaDeviceSynchronize();
 
-    std::cout << '----------------------------------------------------------------' << std::endl;
     std::cout << h_output[0] << std::endl;
     cnpy::npy_save("cudnn_output.npy",&h_output[0],{OC, IMAGE_DIM, IMAGE_DIM},"w");
 
