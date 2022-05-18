@@ -93,7 +93,7 @@ void initCUDA() {
 
     if (err != CUDA_SUCCESS) {
         fprintf(stderr, "* Error initializing the CUDA context.\n");
-        cuCtxDetach(context);
+        cuCtxDestroy(context);
         exit(-1);
     }
 }
@@ -102,21 +102,21 @@ void initfunction() {
 	auto err = cuModuleLoad(&module, module_file);
     if (err != CUDA_SUCCESS) {
         fprintf(stderr, "* Error loading the module %s\n", module_file);
-        cuCtxDetach(context);
+        cuCtxDestroy(context);
         exit(-1);
     }
 
     err = cuModuleGetFunction(&function, module, kernel_name);
     if (err != CUDA_SUCCESS) {
         fprintf(stderr, "* Error getting kernel function %s\n", kernel_name);
-        cuCtxDetach(context);
+        cuCtxDestroy(context);
         exit(-1);
     }
 }
 
 void finalizeCUDA()
 {
-    cuCtxDetach(context);
+    cuCtxDestroy(context);
 }
 
 void setupDeviceMemory(CUdeviceptr *d_a, CUdeviceptr *d_b, int a, int b)
@@ -270,7 +270,7 @@ int main(int argc, char **argv)
 	error += diff;
     }
 
-    std::cout << result[0] << result[1] << result[2] << std::endl;
+    std::cout << "1: " << result[0] << "2: " << result[1] << "3: " << result[2] << std::endl;
     cnpy::npy_save("ptx_result.npy",&result[0],{A_dim,C_dim},"w");
     std::cout << "error: " << error << std::endl;
     // finish

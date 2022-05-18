@@ -91,8 +91,7 @@ void initCUDA()
 {
     int deviceCount = 0;
     CUresult err = cuInit(0);
-    int clockSpeed = 0;
-    int mpCount = 0;
+    int major = 0, minor = 0;
 
     if (err == CUDA_SUCCESS)
         checkCudaErrors(cuDeviceGetCount(&deviceCount));
@@ -109,9 +108,8 @@ void initCUDA()
     printf("> Using device 0: %s", name);
 
     // get compute capabilities and the devicename
-    checkCudaErrors( cuDeviceGetAttribute(&clockSpeed, CU_DEVICE_ATTRIBUTE_CLOCK_RATE, device) );
-    checkCudaErrors( cuDeviceGetAttribute(&mpCount, CU_DEVICE_ATTRIBUTE_MULTIPROCESSOR_COUNT, device) );
-    printf("> GPU Device has clock speed %1.2f | Number of cores: %d", clockSpeed/1000000.0, nGpuArchCoresPerSM[7] * mpCount);
+    checkCudaErrors( cuDeviceComputeCapability(&major, &minor, device) );
+    printf("> GPU Device has SM %d | compute capability: %d", major, minor);
     err = cuCtxCreate(&context, 0, device);
     if (err != CUDA_SUCCESS) {
         fprintf(stderr, "* Error initializing the CUDA context.");
