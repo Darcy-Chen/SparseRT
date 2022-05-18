@@ -109,7 +109,7 @@ void initCUDA()
 
     // get compute capabilities and the devicename
     checkCudaErrors( cuDeviceComputeCapability(&major, &minor, device) );
-    printf("> GPU Device has SM %d | compute capability: %d", major, minor);
+    printf("> GPU Device has SM %d.%d compute capability", major, minor);
     err = cuCtxCreate(&context, 0, device);
     if (err != CUDA_SUCCESS) {
         fprintf(stderr, "* Error initializing the CUDA context.");
